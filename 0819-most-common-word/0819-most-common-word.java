@@ -9,7 +9,7 @@ class Solution {
     public String mostCommonWord(String paragraph, String[] banned) {
         String[] words = paragraph.replaceAll("\\W+", " ").toLowerCase().split(" ");
         
-        Set<String> bans = new HashSet<>(Arrays.asList(banned));
+        List<String> bans = new ArrayList<>(Arrays.asList(banned));
         Map<String, Integer> cnts = new HashMap<>();
         
         for (String word : words) {
