@@ -36,6 +36,6 @@ class Solution {
         
         letter.addAll(digit);
         
-        return letter.toArray(new String[0]);
+        return letter.toArray(new String[letter.size()]);
     }
 }
