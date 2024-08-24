@@ -10,15 +10,11 @@ import java.util.*;
 class Solution {
 
     public int arrayPairSum(int[] nums) {
-        int ans = 0;
-        // 정렬 후 2개씩 묶어서 계산
         Arrays.sort(nums);
-        for (int i = 0; i < nums.length; i++) {
-            if (i % 2 == 0) { // 0, 2, 4 idx의 값이 pair의 min
-                ans += nums[i];
-            }
-        }
-        return ans;
+        return IntStream.range(0, nums.length)
+                .filter(i -> i % 2 == 0)
+                .map(i -> nums[i])
+                .sum();
     }
 
 }
