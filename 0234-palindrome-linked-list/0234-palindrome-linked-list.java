@@ -14,21 +14,33 @@ import java.util.*;
 class Solution {
 
     public boolean isPalindrome(ListNode head) {
-        Deque<Integer> dq = new ArrayDeque<>();
-        while (head != null) {
-            dq.push(head.val);
-            head = head.next;
+        ListNode fast = head, slow = head;
+
+        // 2칸씩 움직이는 fast 끝까지 갈 때까지 slow와 함께 진행
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        // 홀수 개인 경우 slow가 한 칸 더 앞으로 가도록 처리
+        if (fast != null) {
+            slow = slow.next;
         }
 
-        if (dq.size() == 1) {
-            return true;
+        // slow를 기준으로 역순 연결 리스트 생성
+        ListNode rev = null;
+        while (slow != null) {
+            ListNode next = slow.next;
+            slow.next = rev;
+            rev = slow;
+            slow = next;
         }
-        while (!dq.isEmpty() && dq.size() > 1) {
-            if (dq.peekFirst() != dq.peekLast()) {
+        // rev 연결 리스트를 끝까지 이동하며 비교
+        while (rev != null) {
+            // 역순 연결 리스트 rev와 기존 연결 리스트 head를 차례대로 비교
+            if (rev.val != head.val)
                 return false;
-            }
-            dq.pollFirst();
-            dq.pollLast();
+            rev = rev.next;
+            head = head.next;
         }
         return true;
     }
