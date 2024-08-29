@@ -15,14 +15,14 @@ class Solution {
         BigInteger value = sum(rev1, rev2);
 
         // 3. 다시 뒤집은 후 node 생성
-        String num = value.toString();
-        ListNode head = new ListNode(Integer.parseInt(num.substring(0, 1)));
-        ListNode node = head;
-        for (int i = 1; i < num.length(); i++) {
-            node.next = new ListNode(Integer.parseInt(num.substring(i, i+1)));
-            node = node.next;
+        ListNode node = null;
+        ListNode prev = null;
+        for (char ch : value.toString().toCharArray()) {
+            node = new ListNode(ch - '0');
+            node.next = prev;
+            prev = node;
         }
-        return reverse(head);
+        return node;
     }
 
     public ListNode reverse(ListNode head) {
