@@ -1,30 +1,43 @@
-import java.util.*;
-
 /*
     - points가 주어질 때, (0, 0)에서 가장 가까운 k개의 목록을 순서대로 출력
 */
 
+import java.util.*;
+
 class Solution {
 
     public int[][] kClosest(int[][] points, int k) {
-        // 원점과의 거리를 오름차순으로 정렬
-        Arrays.sort(points, (o1, o2) -> {
-            int val1 = compute(o1[0], o1[1]);
-            int val2 = compute(o2[0], o2[1]);
-
-            return Integer.compare(val1, val2);
-        });
+        Queue<Point> pq = new PriorityQueue<>();
+        for (int[] p : points) {
+            pq.offer(new Point(p, compute(p[0], p[1])));
+        }
 
         int[][] ans = new int[k][2];
         for (int i = 0; i < k; i++) {
-            ans[i][0] = points[i][0];
-            ans[i][1] = points[i][1];
+            ans[i] = pq.poll().p;
         }
         return ans;
     }
-    
+
     public int compute(int x, int y) {
         return (x * x) + (y * y);
+    }
+
+    static class Point implements Comparable<Point> {
+
+        int[] p;
+        int dist;
+
+        Point(int[] p, int dist) {
+            this.p = p;
+            this.dist = dist;
+        }
+
+        @Override
+        public int compareTo(Point o) {
+            return dist - o.dist; // 거리 기준 오름차순 정렬
+        }
+
     }
 
 }
