@@ -7,21 +7,18 @@ import java.util.*;
 class Solution {
 
     public int numJewelsInStones(String jewels, String stones) {
-        Map<Character, Integer> stone = new HashMap<>();
-
-        for (char jewel : jewels.toCharArray()) {
-            if (!stone.containsKey(jewel)) {
-                stone.put(jewel, 0);
-            }
+        Set<Character> set = new HashSet<>();
+        for (char j : jewels.toCharArray()) {
+            set.add(j);
         }
 
+        int cnt = 0;
         for (char s : stones.toCharArray()) {
-            if (stone.containsKey(s)) {
-                stone.put(s, stone.getOrDefault(s, 0) + 1);
+            if (set.contains(s)) {
+                    cnt++;
             }
         }
-
-        return stone.values().stream().mapToInt(i -> i).sum();
+        return cnt;
     }
 
 }
