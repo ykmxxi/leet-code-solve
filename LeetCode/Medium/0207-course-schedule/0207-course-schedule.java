@@ -32,20 +32,6 @@ class Solution {
                 q.offer(i);
             }
         }
-        int min = Integer.MAX_VALUE;
-        if (q.isEmpty()) { // in-degree 0인 코스가 없다면 제일 작은 indeg를 갖는 코스 찾기
-            for (int i = 0; i < indeg.length; i++) {
-                if (min > indeg[i]) {
-                    min = indeg[i];
-                    q.clear();
-                    q.offer(i);
-                    continue;
-                }
-                if (min == indeg[i]) {
-                    q.offer(i);
-                }
-            }
-        }
 
         int cnt = 0;
         while (!q.isEmpty()) {
