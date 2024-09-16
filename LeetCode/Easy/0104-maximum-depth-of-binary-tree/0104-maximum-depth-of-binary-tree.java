@@ -11,25 +11,9 @@ class Solution {
         if (root == null) { // early return
             return 0;
         }
-
-        int depth = 0;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-
-        while (!q.isEmpty()) {
-            depth++;
-            int cnt = q.size(); // 해당 레벨의 노드 개수
-            for (int i = 0; i < cnt; i++) {
-                TreeNode cur = q.poll();
-                if (cur.left != null) {
-                    q.offer(cur.left);
-                }
-                if (cur.right != null) {
-                    q.offer(cur.right);
-                }
-            }
-        }
-        return depth;
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        return Math.max(left, right) + 1;
     }
 
 }
